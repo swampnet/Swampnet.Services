@@ -8,6 +8,6 @@ namespace Swampnet.Services.Books.Interfaces
 {
     public interface IBookRepository
     {
-        Task<IEnumerable<BookDetails>> SearchAsync(string query);
+        Task<BookDetails> GetAsync(string id);
     }
 }

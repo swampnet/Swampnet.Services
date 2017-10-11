@@ -23,11 +23,9 @@ namespace Swampnet.Services.Books.Services
             _apiKey = configuration["isbndb:api-key"];
         }
 
-        public async Task<IEnumerable<BookDetails>> SearchAsync(string query)
+        public async Task<BookDetails> GetAsync(string id)
         {
-            query = query.Replace(" ", "_");
-
-            var endpoint = $"http://isbndb.com/api/v2/json/{_apiKey}/book/{query}";
+            var endpoint = $"http://isbndb.com/api/v2/json/{_apiKey}/book/{id}";
 
             using (var client = new HttpClient())
             {
@@ -38,7 +36,7 @@ namespace Swampnet.Services.Books.Services
                 var json = await rs.Content.ReadAsStringAsync();
                 var searchResult = JsonConvert.DeserializeObject<IsbndbBooksResponse>(json);
 
-                return searchResult.data.Select(Convert.ToBookDetails);
+                return searchResult.data.Select(Convert.ToBookDetails).SingleOrDefault();
             }
         }
     }

@@ -17,14 +17,18 @@ namespace Swampnet.Services.Books.Controllers
             _repository = repository;
         }
 
-        [HttpGet("api/books/query")]
-        public async Task<IActionResult> Get(string query)
+        [HttpGet("api/book/id")]
+        public async Task<IActionResult> Get(string id)
         {
             try
             {
-                var books = await _repository.SearchAsync(query);
+                var book = await _repository.GetAsync(id);
+                if(book == null)
+                {
+                    return NotFound();
+                }
 
-                return Ok(books);
+                return Ok(book);
             }
             catch (Exception ex)
             {
