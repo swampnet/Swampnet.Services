@@ -1,14 +1,13 @@
-﻿using Swampnet.Services.Books.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Swampnet.Services.Books
+namespace Swampnet.Services.Books.Entities
 {
     static class Convert
     {
-        public static BookDetails ToBookDetails(Datum source)
+        public static BookDetails ToBookDetails(ISBNDBBookDetails source)
         {
             return new BookDetails()
             {
@@ -19,7 +18,7 @@ namespace Swampnet.Services.Books
             };
         }
 
-        private static string ToAuthor(IEnumerable<Author_Data> source)
+        private static string ToAuthor(IEnumerable<ISBNDBAuthor> source)
         {
             return string.Join(" / ", source.Select(a => a.name));
         }

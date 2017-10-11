@@ -34,9 +34,11 @@ namespace Swampnet.Services.Books.Services
                 rs.EnsureSuccessStatusCode();
 
                 var json = await rs.Content.ReadAsStringAsync();
-                var searchResult = JsonConvert.DeserializeObject<IsbndbBooksResponse>(json);
+                var searchResult = JsonConvert.DeserializeObject<ISBNDBBooksResponse>(json);
 
-                return searchResult.data.Select(Convert.ToBookDetails).SingleOrDefault();
+                return (searchResult == null || searchResult.data == null) 
+                    ? null
+                    : searchResult.data.Select(Entities.Convert.ToBookDetails).SingleOrDefault();
             }
         }
     }

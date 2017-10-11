@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace Swampnet.Services.Books.Entities
 {
-    public class IsbndbBooksResponse
+    public class ISBNDBBooksResponse
     {
         public string index_searched { get; set; }
-        public Datum[] data { get; set; }
+        public ISBNDBBookDetails[] data { get; set; }
     }
 
-    public class Datum
+
+    public class ISBNDBBookDetails
     {
         public string awards_text { get; set; }
         public string dewey_normal { get; set; }
@@ -22,7 +23,7 @@ namespace Swampnet.Services.Books.Entities
         public string urls_text { get; set; }
         public string publisher_text { get; set; }
         public string isbn13 { get; set; }
-        public Author_Data[] author_data { get; set; }
+        public ISBNDBAuthor[] author_data { get; set; }
         public string publisher_id { get; set; }
         public string lcc_number { get; set; }
         public string publisher_name { get; set; }
@@ -37,7 +38,8 @@ namespace Swampnet.Services.Books.Entities
         public string dewey_decimal { get; set; }
     }
 
-    public class Author_Data
+
+    public class ISBNDBAuthor
     {
         public string id { get; set; }
         public string name { get; set; }
