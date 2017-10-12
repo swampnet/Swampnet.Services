@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using Swampnet.Services.Books.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace Swampnet.Services.Books.Controllers
             _repository = repository;
         }
 
-        [HttpGet("api/book/id")]
+        [HttpGet("api/book/{id}")]
         public async Task<IActionResult> Get(string id)
         {
             try
@@ -32,6 +33,8 @@ namespace Swampnet.Services.Books.Controllers
             }
             catch (Exception ex)
             {
+				Log.Error(ex, ex.Message);
+
                 return StatusCode((int)HttpStatusCode.InternalServerError, ex);
             }
         }

@@ -25,7 +25,16 @@ namespace Swampnet.Services.Books.Services
 
         public async Task<BookDetails> GetAsync(string id)
         {
-            var endpoint = $"http://isbndb.com/api/v2/json/{_apiKey}/book/{id}";
+			if (string.IsNullOrEmpty(_apiKey))
+			{
+				throw new ArgumentNullException("isbndb api-key is null");
+			}
+			if (string.IsNullOrEmpty(id))
+			{
+				throw new ArgumentNullException("id is null");
+			}
+
+			var endpoint = $"http://isbndb.com/api/v2/json/{_apiKey}/book/{id}";
 
             using (var client = new HttpClient())
             {
