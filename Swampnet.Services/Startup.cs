@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
+using Swampnet.Evl;
 
 namespace Swampnet.Services
 {
@@ -18,9 +19,9 @@ namespace Swampnet.Services
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
+		}
 
-        public IConfiguration Configuration { get; }
+		public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -45,13 +46,16 @@ namespace Swampnet.Services
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .CreateLogger();
+			Log.Logger = new LoggerConfiguration()
+				.MinimumLevel.Verbose()
+				.WriteTo.EvlSink(
+					Configuration["evl:api-key"],
+					Configuration["evl:endpoint"])
+				.CreateLogger();
 
-            if (env.IsDevelopment())
+			Log.Logger.WithTag("START").Information("Start");
+
+			if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
 

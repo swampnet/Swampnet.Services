@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Swampnet.Evl;
 
 namespace Swampnet.Services.Books.Controllers
 {
@@ -24,12 +25,17 @@ namespace Swampnet.Services.Books.Controllers
             try
             {
                 var book = await _repository.GetAsync(id);
+
                 if(book == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(book);
+				Log.Logger
+					.WithPublicProperties(book)
+					.Information("Get: {id}", id);
+
+				return Ok(book);
             }
             catch (Exception ex)
             {
