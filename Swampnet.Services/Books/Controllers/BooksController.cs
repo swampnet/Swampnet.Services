@@ -19,7 +19,7 @@ namespace Swampnet.Services.Books.Controllers
             _repository = repository;
         }
 
-        [HttpGet("api/book/{id}")]
+        [HttpGet("api/books/{id}")]
         public async Task<IActionResult> Get(string id)
         {
             try
