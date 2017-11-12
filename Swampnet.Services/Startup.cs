@@ -50,7 +50,8 @@ namespace Swampnet.Services
 				.MinimumLevel.Verbose()
 				.WriteTo.EvlSink(
 					Configuration["evl:api-key"],
-					Configuration["evl:endpoint"])
+					Configuration["evl:endpoint"],
+					"Swampnet.Services")
 				.CreateLogger();
 
 			Log.Logger.WithTag("START").Information("Start");

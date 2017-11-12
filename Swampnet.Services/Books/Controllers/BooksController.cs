@@ -31,9 +31,7 @@ namespace Swampnet.Services.Books.Controllers
                     return NotFound();
                 }
 
-				Log.Logger
-					.WithPublicProperties(book)
-					.Information("Get: {id}", id);
+				Log.Information("Get: {id}", id);
 
 				return Ok(book);
             }
