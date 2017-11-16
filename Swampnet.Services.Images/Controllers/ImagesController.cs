@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using Swampnet.Services.Images.Interfaces;
 using System;
@@ -19,14 +20,18 @@ namespace Swampnet.Services.Images.Controllers
         }
 
 
-        [HttpGet("api/images/{id}")]
-        public async Task<IActionResult> Get(string id)
+        //https://www.janaks.com.np/file-upload-asp-net-core-web-api/
+        [HttpPost("api/images")]
+        public async Task<IActionResult> Post(IFormFile file)
         {
             try
             {
                 await Task.CompletedTask; // HACK
 
-                Log.Information("Get: {id}", id);
+                using (var stream = file.OpenReadStream())
+                {
+                    var name = file.FileName;
+                }
 
                 return Ok();
             }
@@ -38,5 +43,27 @@ namespace Swampnet.Services.Images.Controllers
             }
         }
 
+
+        [HttpGet("api/images/{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            try
+            {
+                await Task.CompletedTask; // HACK
+
+                Log.Information("Get: {id}", id);
+                // @TODO: From image repository. Where that gets it from we don't care.
+                //        - It should probably return something we can stream back (or does *that* belong here in the web api stuff?)
+                return File("~/Images/Logo.png", "image/png");
+                //var image = System.IO.File.OpenRead("C:\\test\random_image.jpeg");
+                //return File(image, "image/jpeg");
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
+            }
+        }
     }
 }

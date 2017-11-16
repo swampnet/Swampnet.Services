@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
+using Serilog.Exceptions;
 using Swampnet.Evl;
 
 namespace Swampnet.Services
@@ -49,13 +50,13 @@ namespace Swampnet.Services
         {
 			Log.Logger = new LoggerConfiguration()
 				.MinimumLevel.Verbose()
+                .Enrich.WithExceptionDetails()
 				.WriteTo.EvlSink(
 					Configuration["evl:api-key"],
 					Configuration["evl:endpoint"],
                     typeof(Startup).Assembly.GetName().Name,
                     typeof(Startup).Assembly.GetName().Version.ToString())
 				.CreateLogger();
-
 
             if (!env.IsDevelopment())
             {
