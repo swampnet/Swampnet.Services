@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Swampnet.Services.UnitTests.Mocks
+namespace Swampnet.Services.UnitTests.Mocks.Books
 {
-    class Books
+    internal class BookMocks
     {
         public BookDetails BookDetails()
         {

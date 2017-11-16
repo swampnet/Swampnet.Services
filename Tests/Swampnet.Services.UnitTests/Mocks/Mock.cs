@@ -6,6 +6,6 @@ namespace Swampnet.Services.UnitTests.Mocks
 {
     static class Mock
     {
-        public static Books Books => new Books();
+        public static Books.BookMocks Books { get; } = new Books.BookMocks();
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using Swampnet.Services.Books.Entities;
 using System.Threading.Tasks;
 
-namespace Swampnet.Services.UnitTests.Mocks
+namespace Swampnet.Services.UnitTests.Mocks.Books
 {
     class MockedBookRepository : IBookRepository
     {
