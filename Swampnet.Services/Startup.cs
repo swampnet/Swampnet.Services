@@ -28,6 +28,7 @@ namespace Swampnet.Services
         {
             services.AddMvc();
             services.AddBooksApi();
+            services.AddImagesApi();
             services.AddCors();
 
             // Register the Swagger generator, defining one or more Swagger documents
@@ -55,9 +56,14 @@ namespace Swampnet.Services
                     typeof(Startup).Assembly.GetName().Version.ToString())
 				.CreateLogger();
 
-			Log.Logger.WithTag("START").Information("Start");
 
-			if (env.IsDevelopment())
+            if (!env.IsDevelopment())
+            {
+                Log.Logger.WithTag("START").Information("Start");
+            }
+
+
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
 
