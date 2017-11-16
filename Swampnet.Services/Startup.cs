@@ -51,7 +51,8 @@ namespace Swampnet.Services
 				.WriteTo.EvlSink(
 					Configuration["evl:api-key"],
 					Configuration["evl:endpoint"],
-					"Swampnet.Services")
+                    typeof(Startup).Assembly.GetName().Name,
+                    typeof(Startup).Assembly.GetName().Version.ToString())
 				.CreateLogger();
 
 			Log.Logger.WithTag("START").Information("Start");

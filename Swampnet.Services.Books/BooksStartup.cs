@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Swampnet.Services
 {
-    static class BooksStartup
+    public static class BooksStartup
     {
         public static void AddBooksApi(this IServiceCollection services)
         {
