@@ -31,6 +31,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Swampnet.Services.Books\Swampnet.Services.Books.csproj" />
     <ProjectReference Include="..\Swampnet.Services.Images\Swampnet.Services.Images.csproj" />
+    <ProjectReference Include="..\Swampnet.Services.Shared\Swampnet.Services.Shared.csproj" />
   </ItemGroup>
 
 </Project>

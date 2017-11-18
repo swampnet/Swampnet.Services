@@ -39,8 +39,8 @@ namespace Swampnet.Services.Books.Controllers
             {
 				Log.Error(ex, ex.Message);
 
-                return StatusCode((int)HttpStatusCode.InternalServerError, ex);
-            }
-        }
+				return this.ServerError(ex);
+			}
+		}
     }
 }

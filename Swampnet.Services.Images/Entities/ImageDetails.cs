@@ -12,7 +12,8 @@ namespace Swampnet.Services.Images.Entities
      */
     public class ImageDetails
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
-    }
+		public string ContentType { get; set; }
+	}
 }
