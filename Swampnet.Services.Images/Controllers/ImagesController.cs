@@ -17,26 +17,26 @@ namespace Swampnet.Services.Images.Controllers
      * Add image
      * Update image
      */
-
+	[Route("images")]
 	public class ImagesController : Controller
     { 
-        private readonly IImagesRepository _images;
+        private readonly IImagesRepository _imageRepository;
 
-		public ImagesController(IImagesRepository images)
+		public ImagesController(IImagesRepository imageRepository)
         {
-            _images = images;
+            _imageRepository = imageRepository;
 		}
 
 
-        [HttpPost("api/images")]
-        public async Task<IActionResult> Post(IFormFile file)
+		[HttpPost]
+		public async Task<IActionResult> Post(IFormFile file)
         {
             try
             {
-				var details = await _images.SaveAsync(file);
+				var details = await _imageRepository.SaveAsync(file);  
 
-				return Ok(details);
-            }
+				return CreatedAtRoute("Image", new { id = details.Id }, details);
+			}
             catch (Exception ex)
             {
 				Log.Error(ex, ex.Message);
@@ -46,8 +46,8 @@ namespace Swampnet.Services.Images.Controllers
         }
 
 
-        [HttpGet("api/images/{id}")]
-        public async Task<IActionResult> Get(Guid id)
+		[HttpGet("{id}", Name = "Image")]
+		public async Task<IActionResult> Get(Guid id)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace Swampnet.Services.Images.Controllers
 		}
 
 
-        [HttpGet("api/images/{id}/details")]
+        [HttpGet("{id}/details")]
         public async Task<IActionResult> GetDetails(Guid id)
         {
             try
