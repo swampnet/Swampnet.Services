@@ -1,4 +1,8 @@
 # Swampnet.Services
 A selection of random services / R&amp;D
 
-.Images could probably just be a generic File service...
+
+@Notes
+
+@Todo
+- Images service could probably just be a generic File service...
