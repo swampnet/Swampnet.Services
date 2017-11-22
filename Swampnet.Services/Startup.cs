@@ -6,6 +6,8 @@ using Swashbuckle.AspNetCore.Swagger;
 using Serilog;
 using Serilog.Exceptions;
 using Swampnet.Evl;
+using Microsoft.Extensions.Hosting;
+using Swampnet.Services.HostedBackgroundService;
 
 namespace Swampnet.Services
 {
@@ -25,6 +27,9 @@ namespace Swampnet.Services
             services.AddBooksApi();
             services.AddImagesApi();
             services.AddCors();
+
+            // Register Hosted Services
+            services.AddSingleton<IHostedService, TestBackgroundService>();
 
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
