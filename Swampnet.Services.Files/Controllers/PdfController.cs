@@ -33,7 +33,7 @@ namespace Swampnet.Services.Files.Controllers
 		{
 			await Task.CompletedTask;
 
-			return Ok(new CreatePdfOptions() { Html = "<html></html>"});
+			return Ok(new CreatePdfOptions() { Html = "<html><h1>Hello, world!</h1><p>doo be do be dooo</p><img src=\"https://news.nationalgeographic.com/content/dam/news/2016/10/08/drill-monkey-waq/drill-monkey-01.adapt.1190.1.jpg\"/></html>" });
 		}
 
 
