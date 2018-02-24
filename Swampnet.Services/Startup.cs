@@ -26,7 +26,8 @@ namespace Swampnet.Services
             services.AddMvc();
             services.AddBooksApi();
             services.AddImagesApi();
-            services.AddCors();
+			services.AddFilesApi();
+			services.AddCors();
 
             // Register Hosted Services
             services.AddSingleton<IHostedService, TestBackgroundService>();
