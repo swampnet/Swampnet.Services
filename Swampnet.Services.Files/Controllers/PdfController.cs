@@ -1,8 +1,10 @@
 ﻿using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,9 +37,13 @@ namespace Swampnet.Services.Files.Controllers
 		}
 
 
-		private static byte[] BuildPdf(string html)
+		private byte[] BuildPdf(string html)
 		{
-			return _pdfConverter.Convert(new HtmlToPdfDocument()
+			byte[] rs = null;
+
+			var sw = Stopwatch.StartNew();
+
+			rs = _pdfConverter.Convert(new HtmlToPdfDocument()
 			{
 				Objects =
 				{
@@ -47,6 +53,10 @@ namespace Swampnet.Services.Files.Controllers
 					}
 				}
 			});
+
+			Log.Information("Built pdf in {time:0.00}s", sw.Elapsed.TotalMilliseconds);
+
+			return rs;
 		}
 	}
 
