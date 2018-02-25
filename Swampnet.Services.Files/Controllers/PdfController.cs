@@ -14,17 +14,40 @@ namespace Swampnet.Services.Files.Controllers
 	[Route("pdf")]
 	public class PdfController : Controller
 	{
-		static IConverter _pdfConverter = new SynchronizedConverter(new PdfTools());
+		private readonly IConverter _converter;
 
+		public PdfController(IConverter converter)
+		{
+			_converter = converter;
+		}
 
 		[HttpPost]
 		public async Task<IActionResult> Post([FromBody] CreatePdfOptions options)
 		{
-			await Task.CompletedTask;
+			try
+			{
+				await Task.CompletedTask;
 
-			var pdfBytes = BuildPdf(options.Html);
+				if (options == null)
+				{
+					throw new ArgumentNullException("options");
+				}
+				if (string.IsNullOrEmpty(options.Html))
+				{
+					throw new ArgumentNullException("html");
+				}
 
-			return File(pdfBytes, "application/pdf");
+				var pdfBytes = BuildPdf(options.Html);
+
+				return File(pdfBytes, "application/pdf");
+			}
+			catch (Exception ex)
+			{
+				ex.Data.Add("html", options?.Html);
+				Log.Error(ex, ex.Message);
+
+				return this.ServerError(ex);
+			}
 		}
 
 
@@ -43,7 +66,7 @@ namespace Swampnet.Services.Files.Controllers
 
 			var sw = Stopwatch.StartNew();
 
-			rs = _pdfConverter.Convert(new HtmlToPdfDocument()
+			rs = _converter.Convert(new HtmlToPdfDocument()
 			{
 				Objects =
 				{
