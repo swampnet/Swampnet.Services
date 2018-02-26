@@ -35,4 +35,13 @@
     <ProjectReference Include="..\Swampnet.Services.Shared\Swampnet.Services.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="libs\wkhtmltox\32 bit\libwkhtmltox.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="libs\wkhtmltox\64 bit\libwkhtmltox.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
