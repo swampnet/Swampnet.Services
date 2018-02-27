@@ -25,7 +25,6 @@ namespace Swampnet.Services
         {
             services.AddMvc();
             services.AddBooksApi();
-            services.AddImagesApi();
 			services.AddFilesApi();
 			services.AddCors();
 

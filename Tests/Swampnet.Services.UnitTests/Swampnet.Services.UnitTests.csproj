@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Swampnet.Services.Books\Swampnet.Services.Books.csproj" />
-    <ProjectReference Include="..\..\Swampnet.Services.Images\Swampnet.Services.Images.csproj" />
   </ItemGroup>
 
 </Project>

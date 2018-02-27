@@ -2,9 +2,11 @@
 using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
+using Swampnet.Services.Files.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +28,8 @@ namespace Swampnet.Services.Files.Controllers
 		{
 			try
 			{
+				Log.Debug("{controller} post", GetType().Name);
+
 				await Task.CompletedTask;
 
 				if (options == null)
@@ -54,9 +58,19 @@ namespace Swampnet.Services.Files.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
+			Log.Debug("{controller} Get", GetType().Name);
+
 			await Task.CompletedTask;
 
-			return Ok(new CreatePdfOptions() { Html = "<html><h1>Hello, world!</h1><p>doo be do be dooo</p><img src=\"https://news.nationalgeographic.com/content/dam/news/2016/10/08/drill-monkey-waq/drill-monkey-01.adapt.1190.1.jpg\"/></html>" });
+			var architectureFolder = (IntPtr.Size == 8) ? "64 bit" : "32 bit";
+			var wkHtmlToPdfPath = Path.Combine(AppContext.BaseDirectory, $"libs\\wkhtmltox\\{architectureFolder}\\libwkhtmltox");
+
+
+			return Ok(new CreatePdfOptions()
+			{
+				Html = "<html><h1>Hello, world!</h1><p>doo be do be dooo</p><img src=\"https://news.nationalgeographic.com/content/dam/news/2016/10/08/drill-monkey-waq/drill-monkey-01.adapt.1190.1.jpg\"/></html>",
+				Hack_LibLocation = wkHtmlToPdfPath
+			});
 		}
 
 
@@ -81,11 +95,5 @@ namespace Swampnet.Services.Files.Controllers
 
 			return rs;
 		}
-	}
-
-
-	public class CreatePdfOptions
-	{
-		public string Html { get; set; }
 	}
 }
